@@ -32,9 +32,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Add remote origin
-        if: github.ref == 'refs/heads/master' && job.status == 'success'
+        if: github.ref == 'refs/heads/cicd' && job.status == 'success'
         run: |
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
       - name: Deploy to Heroku
         run: |
-          git push heroku HEAD:master -f
+          git push heroku -f
