@@ -23,7 +23,7 @@ jobs:
         run: mvn clean install
 
       - name: Build & push Docker image
-        uses: bagusfaisal24/docker-build-push@v5
+        uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: bagusfaisal24/springboot-deployment1
           tags: latest
