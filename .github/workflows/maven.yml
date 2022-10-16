@@ -38,4 +38,4 @@ jobs:
       - name: Deploy to Heroku
         run: |
           git fetch --all --unshallow
-          git push heroku master -f
+          git push heroku cicd -f
