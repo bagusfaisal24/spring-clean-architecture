@@ -18,4 +18,5 @@ public interface ProductSvc {
     ResponseEntity<Object> updateById(ProductForm form, Long id);
 
     ResponseEntity<Object> deleteById(Long id);
+
 }

@@ -82,7 +82,7 @@ public class ProductSvcImpl implements ProductSvc {
         }
     }
 
-    private ProductModel product(ProductForm form) {
+    public ProductModel product(ProductForm form) {
         ProductModel product = new ProductModel();
         product.setProductName(form.getProductName());
         product.setPrice(form.getPrice());
