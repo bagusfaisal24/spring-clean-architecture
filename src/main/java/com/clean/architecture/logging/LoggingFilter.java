@@ -38,13 +38,17 @@ public class LoggingFilter extends OncePerRequestFilter {
         String responseBody = getStringValue(responseWrapper.getContentAsByteArray());
         String requestBody = getStringValue(requestWrapper.getContentAsByteArray());
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("method", requestWrapper.getMethod());
-        map.put("json_request", requestBody);
-        map.put("json_response", responseBody);
-        map.put("uri", requestWrapper.getRequestURI());
-        map.put("http_status", String.valueOf(responseWrapper.getStatus()));
-        loggingSvc.createLog(map, "api-log");
+        try {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("method", requestWrapper.getMethod());
+            map.put("json_request", requestBody);
+            map.put("json_response", responseBody);
+            map.put("uri", requestWrapper.getRequestURI());
+            map.put("http_status", String.valueOf(responseWrapper.getStatus()));
+            loggingSvc.createLog(map, "api-log");
+        }catch (Exception e){
+            log.error("error logging filter" + e.getMessage());
+        }
         responseWrapper.copyBodyToResponse();
     }
 
