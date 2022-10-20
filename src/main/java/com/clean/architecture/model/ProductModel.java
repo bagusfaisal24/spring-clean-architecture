@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -13,7 +14,9 @@ import javax.persistence.*;
 @Table(name = "product")
 @NoArgsConstructor
 @Where(clause = "is_deleted = false")
-public class ProductModel extends BaseDao {
+public class ProductModel extends BaseDao implements Serializable {
+
+    private static final long serialVersionUID = 5997353193872930935L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

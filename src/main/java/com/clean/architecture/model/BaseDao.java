@@ -9,12 +9,15 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
 @NoArgsConstructor
-public abstract class BaseDao {
+public abstract class BaseDao implements Serializable {
+
+    private static final long serialVersionUID = 1997353193872930935L;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createAt;

@@ -1,11 +1,7 @@
 package com.clean.architecture.service;
 
-import com.clean.architecture.common.ResponseUtil;
 import com.clean.architecture.form.ProductForm;
-import com.clean.architecture.model.ProductModel;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface ProductSvc {
 

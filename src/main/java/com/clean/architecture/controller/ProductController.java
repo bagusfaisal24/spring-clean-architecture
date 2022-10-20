@@ -1,13 +1,10 @@
 package com.clean.architecture.controller;
 
 import com.clean.architecture.form.ProductForm;
-import com.clean.architecture.model.ProductModel;
 import com.clean.architecture.service.ProductSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/product")
