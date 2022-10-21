@@ -49,13 +49,7 @@ public class ProductSvcImpl implements ProductSvc {
                 if (data != null) continue;
                 redisSvc.putIfAbsen(product);
             }
-            HashMap<String, Object> dataSetRedis = (HashMap<String, Object>) redisSvc.hashGet();
-            List<ProductModel> productList = new ArrayList<>();
-            for (Object key : dataSetRedis.keySet()){
-                ProductModel product = (ProductModel) redisSvc.getById(Long.valueOf(key.toString()));
-                productList.add(product);
-            }
-            return ResponseUtil.build(MessageConstant.SUCCESS, productList, HttpStatus.OK);
+            return ResponseUtil.build(MessageConstant.SUCCESS, products, HttpStatus.OK);
         }catch (Exception e){
             return ResponseUtil.build(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,12 +59,13 @@ public class ProductSvcImpl implements ProductSvc {
     public ResponseEntity<Object> findById(Long id) {
         try {
             // data from rdbms
-//            Optional<ProductModel> getById = productRepo.findById(id);
-//            return getById.map(productModel -> ResponseUtil.build(MessageConstant.SUCCESS, productModel, HttpStatus.OK))
-//                    .orElseGet(() -> ResponseUtil.build(MessageConstant.DATA_NOT_FOUND, null, HttpStatus.NOT_FOUND));
+            Optional<ProductModel> getById = productRepo.findById(id);
             // data from redis
             Object data = redisSvc.getById(id);
-            if (data == null) return ResponseUtil.build(MessageConstant.DATA_NOT_FOUND, null, HttpStatus.NOT_FOUND);
+            if (data == null){
+                return getById.map(productModel -> ResponseUtil.build(MessageConstant.SUCCESS, productModel, HttpStatus.OK))
+                        .orElseGet(() -> ResponseUtil.build(MessageConstant.DATA_NOT_FOUND, null, HttpStatus.NOT_FOUND));
+            }
             return ResponseUtil.build(MessageConstant.SUCCESS, data, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseUtil.build(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
