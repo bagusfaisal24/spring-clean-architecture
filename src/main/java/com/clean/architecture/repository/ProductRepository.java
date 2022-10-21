@@ -11,8 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface ProductRepository extends JpaRepository<ProductModel, Long> {
-
-    @Modifying
-    @Query(value = "update product set is_deleted = :flag where id = :id", nativeQuery = true)
-    void deleteOne(@Param("flag") boolean flagDeleted, @Param("id") Long id);
 }

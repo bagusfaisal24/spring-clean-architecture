@@ -98,7 +98,7 @@ public class ProductSvcImpl implements ProductSvc {
         try {
             Optional<ProductModel> data = productRepo.findById(id);
             if (!data.isPresent()) return ResponseUtil.build(MessageConstant.DATA_NOT_FOUND, null, HttpStatus.NOT_FOUND);
-            productRepo.deleteOne(true, data.get().getId());
+            productRepo.delete(data.get());
             redisSvc.delete(data.get().getId());
             return ResponseUtil.build(MessageConstant.SUCCESS_DELETE, null, HttpStatus.OK);
         }catch (Exception e){
