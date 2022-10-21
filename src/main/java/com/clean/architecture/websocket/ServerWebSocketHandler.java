@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -42,14 +43,12 @@ public class ServerWebSocketHandler extends TextWebSocketHandler implements SubP
         super.afterConnectionClosed(session, status);
     }
 
-    @Scheduled(fixedRate = 60000)
-    public void sendPeriodicMessage() throws IOException {
+    @RabbitListener(queues = "product.queue")
+    public void sendPeriodicMessage(String message) throws IOException {
         for (WebSocketSession session : sessions){
             if (session.isOpen()){
-//                String message = String.format("periodic send event message date : %s", LocalDateTime.now());
-                String data = jsonString();
-                LOGGER.info("Server sends: {}", data);
-                session.sendMessage(new TextMessage(data));
+                LOGGER.info("Server sends: {}", message);
+                session.sendMessage(new TextMessage(message));
             }
         }
     }
