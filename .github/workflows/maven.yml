@@ -31,13 +31,14 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Add remote origin
-        if: job.status == 'success'
+      - name: Deploy on AWS EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOSTNAME: ${{ secrets.AWS_HOSTNAME  }}
+          USER_NAME: ${{ secrets.AWS_USER  }}
         run: |
-          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-      - name: Fetch git
-        run: |
-          git fetch --all --unshallow
-      - name: Deploy to Heroku
-        run: |
-          git push heroku HEAD:main -f
+          echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
+            mkdir /home/app
+          '
+          rm -rf private_key.pem
