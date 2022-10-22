@@ -41,8 +41,9 @@ jobs:
           echo "$HOSTNAME"
           echo "$USER_NAME"
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
-            sudo cd /home/app
-            sudo chmod +x deploy.sh
+            #Now we have got the access of EC2 and we will start the deploy 
+            cd /home/app &&
+            sudo chmod +x deploy.sh &&
             sh deploy.sh
           '
           rm -rf private_key.pem
