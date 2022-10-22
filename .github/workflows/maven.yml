@@ -38,6 +38,8 @@ jobs:
           USER_NAME: ${{ secrets.AWS_USER  }}
         run: |
           echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
+          echo "$HOSTNAME"
+          echo "$USER_NAME"
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
             mkdir /home/app
           '
