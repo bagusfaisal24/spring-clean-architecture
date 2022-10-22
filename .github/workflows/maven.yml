@@ -41,6 +41,7 @@ jobs:
           echo "$HOSTNAME"
           echo "$USER_NAME"
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
+            sudo -i
             mkdir /home/app
           '
           rm -rf private_key.pem
