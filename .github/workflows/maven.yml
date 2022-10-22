@@ -41,9 +41,10 @@ jobs:
           echo "$HOSTNAME"
           echo "$USER_NAME"
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
+            rm -rf /home/app
             sudo mkdir /home/app
             sudo cd /home/app
-            sudo chmod +x ./deploy.sh
-            ./deploy.sh
+            sudo chmod +x deploy.sh
+            sh deploy.sh
           '
           rm -rf private_key.pem
