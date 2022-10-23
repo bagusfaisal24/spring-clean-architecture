@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: "mysql"
+    active: "postgresql"
   data:
     mongodb:
       database: logging
