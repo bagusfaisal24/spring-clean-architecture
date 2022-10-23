@@ -17,7 +17,7 @@ public class ProductController {
     public Map<String, Object> getServerTime(){
         Map<String, Object> map = new HashMap<>();
         map.put("time", LocalDateTime.now());
-        map.put("data", "Hellow World");
+        map.put("data", "Hello brother");
         return map;
     }
 }
