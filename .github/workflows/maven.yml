@@ -1,0 +1,49 @@
+name: project cicd flow
+
+on:
+  push:
+    branches: [ cicd ]
+  pull_request:
+    branches: [ cicd ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: '1.8'
+          distribution: 'adopt'
+          cache: maven
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: bagusfaisal24/springboot-deployment1
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Deploy on AWS EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOSTNAME: ${{ secrets.AWS_HOSTNAME  }}
+          USER_NAME: ${{ secrets.AWS_USER  }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
+          echo "$HOSTNAME"
+          echo "$USER_NAME"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
+            #Now we have got the access of EC2 and we will start the deploy
+            cd /home/app &&
+            sudo chmod +x deploy.sh &&
+            sh deploy.sh
+          '
+          rm -rf private_key.pem
