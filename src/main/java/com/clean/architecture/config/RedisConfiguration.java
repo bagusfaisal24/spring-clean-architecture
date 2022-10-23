@@ -16,8 +16,8 @@ public class RedisConfiguration {
     private String password;
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory(){
-        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(password, 6379);
-        lettuceConnectionFactory.setPassword("eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81");
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(url, 6379);
+        lettuceConnectionFactory.setPassword(password);
         return lettuceConnectionFactory;
     }
 
