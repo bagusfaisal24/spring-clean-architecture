@@ -7,12 +7,14 @@ spring:
   data:
     mongodb:
       database: logging
-      host: localhost
+      host: ec2-108-137-89-224.ap-southeast-3.compute.amazonaws.com
       username: root
       password: password
       port: 27017
       authentication-database: admin
-
+  redis:
+    url: ec2-108-137-89-224.ap-southeast-3.compute.amazonaws.com
+    password: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
 
 ---
 spring:
