@@ -7,13 +7,13 @@ spring:
   data:
     mongodb:
       database: logging
-      host: localhost
+      host: ec2-108-137-89-224.ap-southeast-3.compute.amazonaws.com
       username: root
       password: password
       port: 27017
       authentication-database: admin
   redis:
-    url: localhost
+    url: ec2-108-137-89-224.ap-southeast-3.compute.amazonaws.com
     password: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
   rabbitmq:
     host: localhost
@@ -39,7 +39,7 @@ spring:
   profiles: postgresql
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ajmc
+    url: jdbc:postgresql://ec2-108-137-89-224.ap-southeast-3.compute.amazonaws.com:5432/ajmc
     username: postgres
     password: SevenEightTwo782
   jpa:
