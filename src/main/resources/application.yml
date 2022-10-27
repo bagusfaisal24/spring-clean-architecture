@@ -7,16 +7,16 @@ spring:
   data:
     mongodb:
       database: logging
-      host:  ${{ secrets.AWS_DB  }}
+      host: localhost
       username: root
       password: password
       port: 27017
       authentication-database: admin
   redis:
-    url: ${{ secrets.AWS_DB  }}
+    url: localhost
     password: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
   rabbitmq:
-    host: ${{ secrets.AWS_DB  }}
+    host: localhost
     username: guest
     password: guest
     port: 5672
@@ -39,7 +39,7 @@ spring:
   profiles: postgresql
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${{ secrets.AWS_DB  }}:5432/ajmc
+    url: jdbc:postgresql://localhost:5432/ajmc
     username: postgres
     password: SevenEightTwo782
   jpa:
